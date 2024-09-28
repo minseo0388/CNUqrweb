@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, g
+from flask import Flask, jsonify, g, Response
 import qr
-import qrcode
+import uuid
+import os
 
 app = Flask(__name__)
 
@@ -11,7 +12,18 @@ def CNUqrhome():
     
 @app.route('/cnuqr/<ID>', methods=['GET'])
 def CNUqr(ID):
-    return qr.qrmaker(ID).load("result.png")
+    qr_path = 'temp/' + str(uuid.uuid4()) + '.png'
+
+    qr.qrmaker(ID).save(qr_path)
+    
+    qr_file = open(qr_path, "rb")
+    qr_data = qr_file.read()
+    qr_file.close()
+
+    os.remove(qr_path)
+
+    return Response(qr_data, mimetype="image/png")
+    
 
 # @app.route('/cnuqr/getid', methods=['GET'])
 # def getID():
