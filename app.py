@@ -24,13 +24,5 @@ def CNUqr(ID):
 
     return Response(qr_data, mimetype="image/png")
     
-
-# @app.route('/cnuqr/getid', methods=['GET'])
-# def getID():
-#    if hasattr(g, 'studentID'):
-#        return f"Stored student ID is: {g.studentID}"
-#    else:
-#        return "No student ID stored."
-    
 if __name__ == '__main__':
     app.run('127.0.0.1', 5000, debug=True)
