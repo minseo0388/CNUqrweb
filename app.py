@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, g
-from qr import image
-import student
+import qr
 
 app = Flask(__name__)
 
@@ -11,10 +10,7 @@ def CNUqrhome():
     
 @app.route('/cnuqr/<ID>', methods=['GET'])
 def CNUqr(ID):
-    student.setStudentID(ID)
-    g.studentID = ID
-    return image.load("result.png")
-
+    return qr.qrmaker(ID).load("result.png")
 
 @app.route('/cnuqr/getid', methods=['GET'])
 def getID():
