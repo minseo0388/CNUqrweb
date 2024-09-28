@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, g
 import qr
+import qrcode
 
 app = Flask(__name__)
 
@@ -12,12 +13,12 @@ def CNUqrhome():
 def CNUqr(ID):
     return qr.qrmaker(ID).load("result.png")
 
-@app.route('/cnuqr/getid', methods=['GET'])
-def getID():
-    if hasattr(g, 'studentID'):
-        return f"Stored student ID is: {g.studentID}"
-    else:
-        return "No student ID stored."
+# @app.route('/cnuqr/getid', methods=['GET'])
+# def getID():
+#    if hasattr(g, 'studentID'):
+#        return f"Stored student ID is: {g.studentID}"
+#    else:
+#        return "No student ID stored."
     
 if __name__ == '__main__':
     app.run('127.0.0.1', 5000, debug=True)
